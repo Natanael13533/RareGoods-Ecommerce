@@ -81,24 +81,24 @@ WSGI_APPLICATION = "rareGoods.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # POSTGRESQL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv('DB_NAME')), 
-        'USER': str(os.getenv('DB_USER')),
-        'PASSWORD': str(os.getenv('DB_PASSWORD')),
-        'HOST': str(os.getenv('DB_HOST')), 
-        'PORT': str(os.getenv('DB_PORT')),
-    }
-}
-
-# SQLITE
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': str(os.getenv('DB_NAME')), 
+#         'USER': str(os.getenv('DB_USER')),
+#         'PASSWORD': str(os.getenv('DB_PASSWORD')),
+#         'HOST': str(os.getenv('DB_HOST')), 
+#         'PORT': str(os.getenv('DB_PORT')),
 #     }
 # }
+
+# SQLITE
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # Password validation
