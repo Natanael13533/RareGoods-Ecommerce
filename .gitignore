@@ -1,4 +1,4 @@
 .venv/
 .vscode/
-rareGoods/.env
+/rareGoods/.env
 ecommerce.rar
