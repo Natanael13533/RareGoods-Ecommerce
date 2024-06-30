@@ -1,0 +1,192 @@
+{% extends "nav.html" %}
+
+{% block title %}
+    Login RareGoods
+{% endblock title %}
+
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+    
+    .form-body {
+        margin-top: 10px;
+        background-color: #5faee3;
+        overflow: hidden;
+    }
+    .form-holder {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .form-holder .form-content {
+      position: relative;
+      text-align: center;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    
+    .form-content .form-items {
+      border: 3px solid #fff;
+      padding: 25px;
+      display: inline-block;
+      width: 100%;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      text-align: left;
+      -webkit-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+    }
+    
+    .form-content h3 {
+      color: #fff;
+      text-align: left;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .form-content h3.form-title {
+      margin-bottom: 30px;
+    }
+    
+    .form-content p {
+      color: #fff;
+      text-align: left;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 20px;
+      margin-bottom: 30px;
+    }
+    
+    
+    .form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+      color: #fff;
+    }
+    
+    .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+      width: 100%;
+      padding: 9px 20px;
+      text-align: left;
+      border: 0;
+      outline: 0;
+      border-radius: 6px;
+      background-color: #fff;
+      font-size: 15px;
+      font-weight: 300;
+      color: #222222;
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+      margin-top: 16px;
+    }
+    
+    
+    .btn-primary{
+      background-color: #222222;
+      outline: none;
+      border: 0px;
+       box-shadow: none;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+      background-color: #222222;
+      outline: none !important;
+      border: none !important;
+      box-shadow: none;
+    }
+    
+    .form-content textarea {
+      position: static !important;
+      width: 100%;
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-align: left;
+      background-color: #fff;
+      border: 0;
+      font-size: 15px;
+      font-weight: 300;
+      color: #8D8D8D;
+      outline: none;
+      resize: none;
+      height: 120px;
+      -webkit-transition: none;
+      transition: none;
+      margin-bottom: 14px;
+    }
+    
+    .form-content textarea:hover, .form-content textarea:focus {
+      border: 0;
+      background-color: #ebeff8;
+      color: #8D8D8D;
+    }
+    
+    .mv-up{
+      margin-top: -9px !important;
+      margin-bottom: 8px !important;
+    }
+    
+    {% comment %} .invalid-feedback{
+      color: #ff606e;
+    }
+    
+    .valid-feedback{
+     color: #2acc80;
+    } {% endcomment %}
+</style>
+{% endblock style %}
+
+{% block form %}
+    <h1 data-aos="fade-up">Login RareGoods</h1>
+    <div class="form-body">
+        {% comment %} <div class="row"> {% endcomment %}
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <form action="{% url "appauth:login" %}" method="post">
+                            {% csrf_token %}
+
+                            {% for message in messages %}
+                              <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                            {% endfor %}
+
+                            <div class="col-md-12">
+                              <input class="form-control" id="username" type="text" name="username" placeholder="Username" required>
+                              {% comment %} <div class="valid-feedback">Username field is valid!</div>
+                              <div class="invalid-feedback">Username field cannot be blank!</div> {% endcomment %}
+                          </div>
+
+                            <div class="col-md-12">
+                                <input class="form-control" id="pasword" type="password" name="password" placeholder="Password" required>
+                                {% comment %} <div class="valid-feedback">Password field is valid!</div>
+                                <div class="invalid-feedback">Password field cannot be blank!</div> {% endcomment %}
+                            </div>
+
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" class="btn btn-primary">Login</button>
+                            </div>
+
+                            <div class=" mt-3">
+                                Doesn't have an account? <a href="{% url "appauth:signup" %}" style="text-decoration: underline; color: black;">Register</a>
+                            </div>
+
+                            <div class=" mt-2">
+                                Forgot Password? <a href="{% url "appauth:reset" %}" style="text-decoration: underline; color: black;">Reset</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% comment %} </div> {% endcomment %}
+    </div>
+{% endblock form %}

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Diskusi
+{% endblock title %}
+
+{% block style %}
+    <style>
+        .services {
+            margin-top: 80px;
+        }
+    </style>
+{% endblock style %}
+
+{% block content %}
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+
+        <div class="container">
+  
+          <div class="section-title" data-aos="fade-up">
+            <h2>Diskusi</h2>
+            <p>Magnam dolores commodi suscipit eius consequatur ex aliquid fug</p>
+          </div>
+  
+        </div>
+    </section><!-- End Services Section -->
+  
+    <!-- ======= More Services Section ======= -->
+    <section id="more-services" class="more-services">
+        <div class="container">
+
+            <div class="row">
+                {% for blog in blogs %}
+                    <div class="col-md-6 d-flex align-items-stretch">
+                        <div class="card" style='background-image: url({{blog.image.url}});' data-aos="fade-up" data-aos-delay="100">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="">{{blog.title}}</a></h5>
+                                <p class="card-text">{{blog.sub_description}}</p>
+                                <div class="read-more"><a href="{% url "myapp:diskusi-detail" blog.slug %}"><i class="bi bi-arrow-right"></i>Read More</a></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section><!-- End More Services Section -->
+{% endblock content %}

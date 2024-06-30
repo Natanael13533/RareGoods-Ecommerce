@@ -1,0 +1,498 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Diskusi Detail 
+{% endblock title %}
+
+{% block style %}
+    <style>
+        .breadcrumbs {
+            margin-top: 140px;
+        }
+
+        {% comment %} Blog Details {% endcomment %}
+        
+        .blog .blog-details {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .blog .blog-details .post-img {
+            margin: -30px -30px 20px -30px;
+            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .blog .blog-details .title {
+            font-size: 28px;
+            font-weight: 700;
+            padding: 0;
+            margin: 20px 0 0 0;
+            color: var(--color-default);
+        }
+
+        .blog .blog-details .content {
+            margin-top: 20px;
+        }
+
+        .blog .blog-details .content h3 {
+            font-size: 22px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .blog .blog-details .content blockquote {
+            overflow: hidden;
+            background-color: rgba(34, 34, 34, 0.06);
+            padding: 60px;
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .blog .blog-details .content blockquote p {
+            color: var(--color-default);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 22px;
+        }
+
+        .blog .blog-details .content blockquote:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--color-secondary);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .blog .blog-details .meta-top {
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+        .blog .blog-details .meta-top ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .blog .blog-details .meta-top ul li+li {
+            padding-left: 20px;
+        }
+
+        .blog .blog-details .meta-top i {
+            font-size: 16px;
+            margin-right: 8px;
+            line-height: 0;
+            color: var(--color-primary);
+        }
+
+        .blog .blog-details .meta-top a {
+            color: #6c757d;
+            font-size: 14px;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .blog .blog-details .meta-bottom {
+            padding-top: 10px;
+            border-top: 1px solid rgba(34, 34, 34, 0.15);
+        }
+
+        .blog .blog-details .meta-bottom i {
+            color: #555555;
+            display: inline;
+        }
+
+        .blog .blog-details .meta-bottom a {
+            color: rgba(34, 34, 34, 0.8);
+            transition: 0.3s;
+        }
+
+        .blog .blog-details .meta-bottom a:hover {
+            color: var(--color-primary);
+        }
+
+        .blog .blog-details .meta-bottom .cats {
+            list-style: none;
+            display: inline;
+            padding: 0 20px 0 0;
+            font-size: 14px;
+        }
+
+        .blog .blog-details .meta-bottom .cats li {
+            display: inline-block;
+        }
+
+        .blog .blog-details .meta-bottom .tags {
+            list-style: none;
+            display: inline;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .blog .blog-details .meta-bottom .tags li {
+            display: inline-block;
+        }
+
+        .blog .blog-details .meta-bottom .tags li+li::before {
+            padding-right: 6px;
+            color: var(--color-default);
+            content: ",";
+        }
+
+        .blog .blog-details .meta-bottom .share {
+            font-size: 16px;
+        }
+
+        .blog .blog-details .meta-bottom .share i {
+            padding-left: 5px;
+        }
+
+        .blog .post-author {
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+          
+        .blog .post-author img {
+            max-width: 120px;
+            margin-right: 20px;
+        }
+          
+        .blog .post-author h4 {
+            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 0px;
+            padding: 0;
+            color: var(--color-default);
+        }
+          
+        .blog .post-author .social-links {
+            margin: 0 10px 10px 0;
+        }
+          
+        .blog .post-author .social-links a {
+            color: rgba(34, 34, 34, 0.5);
+            margin-right: 5px;
+        }
+          
+        .blog .post-author p {
+            font-style: italic;
+            color: rgba(108, 117, 125, 0.8);
+            margin-bottom: 0;
+        }
+
+        {% comment %} Blog Comment {% endcomment %}
+
+        .blog .comments {
+            margin-top: 30px;
+        }
+          
+        .blog .comments .comments-count {
+            font-weight: bold;
+        }
+          
+        .blog .comments .comment {
+            margin-top: 30px;
+            position: relative;
+        }
+          
+        .blog .comments .comment .comment-img {
+            margin-right: 14px;
+        }
+          
+        .blog .comments .comment .comment-img img {
+            width: 60px;
+        }
+          
+        .blog .comments .comment h5 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+          
+        .blog .comments .comment h5 a {
+            font-weight: bold;
+            color: var(--color-default);
+            transition: 0.3s;
+        }
+          
+        .blog .comments .comment h5 a:hover {
+            color: var(--color-primary);
+        }
+          
+        .blog .comments .comment h5 .reply {
+            padding-left: 10px;
+            color: var(--color-primary);
+        }
+          
+        .blog .comments .comment h5 .reply i {
+            font-size: 20px;
+        }
+          
+        .blog .comments .comment time {
+            display: block;
+            font-size: 14px;
+            color: rgba(34, 34, 34, 0.8);
+            margin-bottom: 5px;
+        }
+          
+        .blog .comments .comment.comment-reply {
+            padding-left: 40px;
+        }
+          
+        .blog .comments .reply-form {
+            margin-top: 30px;
+            padding: 30px;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+          
+        .blog .comments .reply-form h4 {
+            font-weight: bold;
+            font-size: 22px;
+        }
+          
+        .blog .comments .reply-form p {
+            font-size: 14px;
+        }
+          
+        .blog .comments .reply-form input {
+            border-radius: 4px;
+            padding: 10px 10px;
+            font-size: 14px;
+        }
+          
+        .blog .comments .reply-form input:focus {
+            box-shadow: none;
+            border-color: rgba(0, 131, 116, 0.8);
+        }
+          
+        .blog .comments .reply-form textarea {
+            border-radius: 4px;
+            padding: 10px 10px;
+            font-size: 14px;
+        }
+          
+        .blog .comments .reply-form textarea:focus {
+            box-shadow: none;
+            border-color: rgba(0, 131, 116, 0.8);
+        }
+          
+        .blog .comments .reply-form .form-group {
+            margin-bottom: 25px;
+        }
+          
+        .blog .comments .reply-form .btn-primary {
+            border-radius: 50px;
+            padding: 14px 40px;
+            border: 0;
+            background-color: #3498db;
+        }
+          
+        .blog .comments .reply-form .btn-primary:hover {
+            background-color: #5faee3;
+        }
+
+        {% comment %} Recent Posts {% endcomment %}
+
+        .blog .sidebar .sidebar-title {
+          font-size: 20px;
+          font-weight: 700;
+          padding: 0;
+          margin: 0;
+          color: var(--color-default);
+        }
+
+        .blog .sidebar .recent-posts .post-item+.post-item {
+          margin-top: 15px;
+        }
+        
+        .blog .sidebar .recent-posts img {
+          width: 80px;
+          float: left;
+        }
+        
+        .blog .sidebar .recent-posts h4 {
+          font-size: 15px;
+          margin-left: 95px;
+          font-weight: bold;
+        }
+        
+        .blog .sidebar .recent-posts h4 a {
+          color: var(--color-default);
+          transition: 0.3s;
+        }
+        
+        .blog .sidebar .recent-posts h4 a:hover {
+          color: var(--color-primary);
+        }
+        
+        .blog .sidebar .recent-posts time {
+          display: block;
+          margin-left: 95px;
+          font-style: italic;
+          font-size: 14px;
+          color: rgba(34, 34, 34, 0.4);
+        }
+    </style>
+{% endblock style %}
+
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Diskusi Detail</h2>
+            <ol>
+                <li><a href="{% url "myapp:index" %}">Home</a></li>
+                <li>Diskusi Detail</li>
+            </ol>
+        </div>
+
+        </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Blog Details Section ======= -->
+  <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row g-5">
+
+        <div class="col-lg-8">
+
+          <article class="blog-details">
+
+            <h2 class="title">{{blog.title}}</h2>
+
+            <div class="meta-top">
+              <ul>
+                <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{blog.user.username}}</li>
+                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time datetime="{{blog.date}}">{{blog.date}}</time></li>
+                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> {{comment_len|length }} Comments</li>
+                <li class="d-flex align-items-center">
+                  <a href="#reply-form">
+                    <i class="bi bi-plus-circle"></i> Add Comments
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End meta top -->
+
+            <div class="content">
+              <p>{{blog.description}}</p>
+            </div><!-- End post content -->
+
+          </article><!-- End blog post -->
+
+          <div class="comments">
+
+            <h4 class="comments-count">{{comment_len|length}} Comments</h4>
+
+            {% for comment in comments %}
+              <div id="comment-{{comment.id}}" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="{% static "assets/img/team/team-1.jpg" %}" alt=""></div>
+                  <div>
+                    <h5><a href="">{{comment.user.username}}</a></h5>
+                    {% comment %} <h5><a href="">{{comment.user.username}}</a> <a href="" class="reply"><i class="bi bi-reply-fill"></i> Reply</a></h5> {% endcomment %}
+                    <time datetime="2020-01-01">{{comment.date}}</time>
+                    <p>
+                      {{comment.content}}
+                    </p>
+                  </div>
+                </div>
+                
+                {% for reply in replies %}
+                    <div id="comment-reply-{{reply.id}}" class="comment comment-reply">
+                      <div class="d-flex">
+                        <div class="comment-img"><img src="{% static "assets/img/team/team-1.jpg" %}" alt=""></div>
+                        <div>
+                          <h5><a href="">{{reply.user.username}}</a></h5>
+                          <time datetime="2020-01-01">{{reply.date}}</time>
+                          <p>
+                            {{reply.content}}
+                          </p>
+                        </div>
+                      </div>
+                    </div><!-- End comment reply #1--> 
+                {% endfor %}
+
+              </div><!-- End comment #2-->
+            {% endfor %}
+
+            <div class="reply-form" id="reply-form">
+
+              <h4>Leave a Comment</h4>
+              <p>Required fields are marked * </p>
+              <form action="{% url "myapp:diskusi-detail" blog.slug %}" method="post">
+                {% csrf_token %}
+                {% comment %} <div class="row">
+                  <div class="col-md-6 form-group">
+                    <input id="username" name="name" type="text" class="form-control" placeholder="Your Name*" value="{{request.user.username}}">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <input id="email" name="email" type="text" class="form-control" placeholder="Your Email*" value="{{request.user.email}}">
+                  </div>
+                </div> {% endcomment %}
+                <div class="row">
+                  <div class="col form-group">
+                    {{ form.content }}
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+
+              </form>
+
+            </div>
+
+          </div><!-- End blog comments -->
+
+        </div>
+
+        <div class="col-lg-4">
+
+          <div class="sidebar">
+
+            <div class="sidebar-item recent-posts">
+              <h3 class="sidebar-title">Recent Posts</h3>
+
+              <div class="mt-3">
+
+                {% for recent_blog in recent_blogs %}
+
+                <div class="post-item mt-5">
+                  <img src="{{  recent_blog.image.url }}" alt="">
+                  <div>
+                    <h4><a href="{% url "myapp:diskusi-detail" recent_blog.slug %}">{{recent_blog.title}}</a></h4>
+                    <time datetime="{{recent_blog.date}}">{{recent_blog.date}}</time>
+                  </div>
+                </div><!-- End recent post item-->
+
+                {% endfor %}
+
+              </div>
+
+            </div><!-- End sidebar recent posts-->
+
+          </div><!-- End Blog Sidebar -->
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Blog Details Section -->
+{% endblock content %}

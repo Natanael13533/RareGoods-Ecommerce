@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}
+    Lokasi
+{% endblock title %}
+
+{% block style %}
+    
+    <style>
+        {% comment %} Map {% endcomment %}
+        .map {
+            margin-top: 100px;
+        }
+        iframe {
+            width: 100%;
+        }
+        {% comment %} /* Card */ {% endcomment %}
+        .card {
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+        }
+
+        .card-header,
+        .card-footer {
+            border-color: #ebeef4;
+            background-color: #fff;
+            color: #798eb3;
+            padding: 15px;
+        }
+
+        .card-title {
+            padding: 20px 0 15px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #012970;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .card-title span {
+            color: #899bbd;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .card-body {
+            padding: 0 20px 20px 20px;
+          }
+
+        .card-img-overlay {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+    
+{% endblock style %}
+
+{% block content %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="map" class="map">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                {% comment %} <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63363.708450547834!2d110.41077569623761!3d-6.981952949787157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70f3564f4e21a7%3A0x23b629f6d552013d!2sPasar%20Barang%20Antik%20Kota%20Lama!5e0!3m2!1sen!2sid!4v1714395321906!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> {% endcomment %}
+                {{map|safe}}
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    
+    <section class="section">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Data tables</h5>
+
+                        <!-- Table with stripped rows -->
+                        <table id="example" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nama Toko</th>
+                                    <th>Kota</th>
+                                    <th>Provinsi</th>
+                                    <th>Alamat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for lokasi in locations %}
+                                    <tr>
+                                        <td>{{lokasi.toko}}</td>
+                                        <td>{{lokasi.kota}}</td>
+                                        <td>{{lokasi.provinsi}}</td>
+                                        <td>{{lokasi.alamat}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock content %}
